@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SyntyStoreSync — Local Asset Manager</title>
+  <link rel="stylesheet" href="/styles.css?v=2" />
+</head>
+<body>
+  <header class="top-header">
+    <div class="brand-area">
+      <div class="logo-mark">S</div>
+      <div>
+        <h1>SyntyStoreSync</h1>
+        <p class="subtitle">Offline Asset Archive &amp; Version Synchronizer</p>
+      </div>
+      <span id="authBadge" class="auth-badge disconnected">Checking Session...</span>
+    </div>
+
+    <div class="header-controls">
+      <div class="path-group">
+        <label for="localPathInput">Local Synty Path</label>
+        <div class="path-input-row">
+          <input id="localPathInput" type="text" value="" placeholder="Path to your local Synty folder" />
+          <button id="rescanBtn" class="btn btn-secondary" title="Rescan local directory">Rescan Local</button>
+          <button id="openFolderBtn" class="btn btn-secondary" title="Open Local Synty Path in Explorer / Finder">Open Folder</button>
+        </div>
+      </div>
+
+      <div class="action-buttons">
+        <button id="loginBtn" class="btn btn-outline">Login to Synty Store</button>
+        <button id="refreshCatalogBtn" class="btn btn-primary">Refresh Remote Catalog</button>
+      </div>
+    </div>
+  </header>
+
+  <div id="crawlBanner" class="crawl-banner hidden">
+    <div class="spinner"></div>
+    <span id="crawlMessage">Crawling Synty Store catalog...</span>
+  </div>
+
+  <section class="toolbar">
+    <div class="toolbar-top">
+      <div class="search-box">
+        <input id="searchInput" type="search" placeholder="Search bundles or folder names (e.g. POLYGON_Military)..." />
+      </div>
+
+      <div class="status-tabs" id="statusTabs">
+        <button class="tab active" data-status="all">All <span class="count" id="count-all">0</span></button>
+        <button class="tab" data-status="missing">Missing <span class="count" id="count-missing">0</span></button>
+        <button class="tab" data-status="update_available">Update Available <span class="count" id="count-update_available">0</span></button>
+        <button class="tab" data-status="partial">Partial <span class="count" id="count-partial">0</span></button>
+        <button class="tab" data-status="synced">Synced <span class="count" id="count-synced">0</span></button>
+      </div>
+    </div>
+
+    <div class="toolbar-bottom">
+      <div class="prefix-pills" id="prefixPills">
+        <button class="pill active" data-prefix="ALL">ALL</button>
+        <button class="pill" data-prefix="POLYGON">POLYGON</button>
+        <button class="pill" data-prefix="SIMPLE">SIMPLE</button>
+        <button class="pill" data-prefix="INTERFACE">INTERFACE</button>
+        <button class="pill" data-prefix="ANIMATION">ANIMATION</button>
+        <button class="pill" data-prefix="SIDEKICK">SIDEKICK</button>
+      </div>
+
+      <div class="file-toggles">
+        <span class="toggle-label">Sync Targets:</span>
+        <label><input type="checkbox" id="toggleIcon" checked /> Icon (.png/.jpg)</label>
+        <label><input type="checkbox" id="toggleUnity" checked /> Unity (.unitypackage)</label>
+        <label><input type="checkbox" id="toggleZip" checked /> Source Files (.zip)</label>
+      </div>
+
+      <div class="bulk-actions">
+        <button id="selectAllBtn" class="btn btn-sm btn-secondary">Select Actionable</button>
+        <button id="deselectAllBtn" class="btn btn-sm btn-secondary">Deselect All</button>
+        <button id="downloadSelectedBtn" class="btn btn-sm btn-accent" disabled>Download Selected (0)</button>
+      </div>
+    </div>
+  </section>
+
+  <main class="main-container">
+    <div id="emptyNotice" class="empty-notice hidden"></div>
+    <div id="bundleGrid" class="bundle-grid"></div>
+  </main>
+
+  <aside id="downloadDrawer" class="download-drawer hidden">
+    <div class="drawer-header">
+      <div>
+        <strong>Active Downloads</strong>
+        <span id="drawerSummary" class="drawer-summary"></span>
+      </div>
+      <div class="drawer-actions">
+        <button id="cancelDownloadsBtn" class="btn btn-sm btn-danger">Cancel Queue</button>
+        <button id="closeDrawerBtn" class="btn btn-sm btn-secondary">Hide</button>
+      </div>
+    </div>
+    <div id="downloadList" class="download-list"></div>
+  </aside>
+
+  <script src="/app.js?v=2"></script>
+</body>
+</html>
+
